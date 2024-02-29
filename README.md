@@ -44,3 +44,12 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Rules and Requirements
+
+- Player wins by getting closer to 21 than the dealer, without going over 21
+- Face cards are 10, Aces are worth either 1 or 11, any other card is worth its pip value
+- Deck needs to be properly shuffled
+- 2 cards are dealt to each player and dealer, clockwise; dealer's second card is face down
+- Stand (not ask for another card)
+- Hit (ask for another card to get closer to 21)
