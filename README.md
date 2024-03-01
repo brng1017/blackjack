@@ -51,5 +51,13 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Face cards are 10, Aces are worth either 1 or 11, any other card is worth its pip value
 - Deck needs to be properly shuffled
 - 2 cards are dealt to each player and dealer, clockwise; dealer's second card is face down
+- Handle Aces as 11 (if score over 21, reduce Aces to 1)
 - Stand (not ask for another card)
 - Hit (ask for another card to get closer to 21)
+- Dealer must hit if score is under 17
+
+| Player \ Dealer | under 21    | exactly 21  | bust        |
+| --------------- | ----------- | ----------- | ----------- |
+| under 21        | Max wins    | Dealer wins | Player wins |
+| exactly 21      | Player wins | Draw        | Player wins |
+| bust            | Dealer wins | Dealer wins | Dealer wins |
