@@ -1,10 +1,16 @@
-function checkWinner(playerScore: number, dealerScore: number): string {
-  if (playerScore > 21) return 'You bust! Dealer wins.';
-  if (dealerScore > 21) return 'Dealer busts! You win!';
+import { Winner } from '../utils';
 
-  if (playerScore > dealerScore) return 'You win!';
-  else if (playerScore < dealerScore) return 'Dealer wins.';
-  else return 'Draw!';
+function checkWinner(playerScore: number, dealerScore: number): Winner {
+  if (playerScore > 21)
+    return { winner: 'Dealer', message: 'You bust! Dealer wins.' };
+  if (dealerScore > 21)
+    return { winner: 'Player', message: 'Dealer busts! You win!' };
+
+  if (playerScore > dealerScore)
+    return { winner: 'Player', message: 'You win!' };
+  else if (playerScore < dealerScore)
+    return { winner: 'Dealer', message: 'Dealer wins.' };
+  else return { winner: 'Draw', message: "It's a draw!" };
 }
 
 export default checkWinner;

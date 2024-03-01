@@ -61,3 +61,11 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 | under 21        | Max wins    | Dealer wins | Player wins |
 | exactly 21      | Player wins | Draw        | Player wins |
 | bust            | Dealer wins | Dealer wins | Dealer wins |
+
+### Possible Additions
+
+- centralized state, like Redux, instead of prop drilling
+- can add functionality for more than one deck used
+- use classes intead of interfaces to create instances for creating objects
+- can add a backend and database configuration for multiplayer
+- handle splitting pairs

@@ -14,3 +14,8 @@ export interface Game {
   player: Player;
   dealer: Player;
 }
+
+export interface Winner {
+  winner: string;
+  message: string;
+}

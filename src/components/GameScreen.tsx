@@ -1,13 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import {
+  Game,
+  Winner,
   checkWinner,
   createGame,
-  Game,
   handlePlayerHit,
   handlePlayerStand,
 } from '../utils';
 
-const GameScreen = () => {
+interface GameScreenProps {
+  bet: number;
+  setBet: React.Dispatch<React.SetStateAction<number>>;
+  cash: number;
+  setCash: React.Dispatch<React.SetStateAction<number>>;
+  setGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const GameScreen: FC<GameScreenProps> = ({
+  bet,
+  setBet,
+  cash,
+  setCash,
+  setGameStarted,
+}) => {
   const [game, setGame] = useState<Game>({
     deck: [],
     player: {
@@ -20,17 +35,11 @@ const GameScreen = () => {
     },
   });
   const [gameEnd, setGameEnd] = useState<boolean>(false);
-  const [winnerMessage, setWinnerMessage] = useState<string>('');
-
-  const initializeGame = () => {
-    const newGame = createGame();
-    setGame(newGame);
-    setGameEnd(false);
-    setWinnerMessage('');
-  };
+  const [winner, setWinner] = useState<Winner>({ winner: '', message: '' });
 
   useEffect(() => {
-    initializeGame();
+    const newGame = createGame();
+    setGame(newGame);
   }, []);
 
   useEffect(() => {
@@ -43,23 +52,30 @@ const GameScreen = () => {
 
   useEffect(() => {
     if (gameEnd) {
-      const message = checkWinner(game.player.score, game.dealer.score);
-      setWinnerMessage(message);
+      const winner = checkWinner(game.player.score, game.dealer.score);
+      handlePayOut(winner.winner);
+      setWinner(winner);
     }
   }, [gameEnd, game.player.score, game.dealer.score]);
 
-  const handleHit = (): void => {
-    setGame((currentGame) => handlePlayerHit(currentGame));
-  };
+  function handlePayOut(winner: string): void {
+    if (winner === 'Player') setCash((currCash) => currCash + 2 * bet);
+    else if (winner === 'Draw') setCash((currCash) => currCash + bet);
+    setBet(0);
+  }
 
-  const handleStand = (): void => {
+  function handleHit(): void {
+    setGame((currentGame) => handlePlayerHit(currentGame));
+  }
+
+  function handleStand(): void {
     setGame((currentGame) => handlePlayerStand(currentGame));
     setGameEnd(true);
-  };
+  }
 
-  const refreshPage = (): void => {
+  function refreshPage(): void {
     if (typeof window !== 'undefined') window.location.reload();
-  };
+  }
 
   return (
     <div>
@@ -67,8 +83,10 @@ const GameScreen = () => {
 
       {gameEnd && (
         <div>
-          <p>{winnerMessage}</p>
-          <button onClick={initializeGame}>Play again</button>
+          <p>{winner.message}</p>
+          <button onClick={() => setGameStarted(false)} disabled={!cash}>
+            Play again
+          </button>
           <button onClick={refreshPage}>Restart</button>
         </div>
       )}
@@ -77,8 +95,14 @@ const GameScreen = () => {
       <p>{JSON.stringify(game.player.hand)}</p>
       <p>{game.player.score}</p>
       <h3>Dealer Hand</h3>
-      <p>{JSON.stringify(game.dealer.hand)}</p>
-      <p>{game.dealer.score}</p>
+      {gameEnd ? (
+        <div>
+          <p>{JSON.stringify(game.dealer.hand)}</p>
+          <p>{game.dealer.score}</p>
+        </div>
+      ) : (
+        <p>{JSON.stringify(game.dealer.hand[0])}</p>
+      )}
 
       {!gameEnd && (
         <div>
