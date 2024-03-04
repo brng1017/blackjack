@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply m-0 scroll-smooth p-0;
+  }
+
+  body {
+    @apply m-auto bg-background font-sans text-text font-extrabold;
+  }
+}
+
+@layer utilities {
+  button {
+    @apply bg-button rounded-sm px-5 py-2.5 text-center text-text transition-all ease-in hover:bg-hover focus:outline-none disabled:bg-disabled;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  @keyframes fadeIn {
+    from {
+      /* opacity: 0; */
+      margin-top: -2rem;
+    }
+    to {
+      /* opacity: 1; */
+      margin-top: 0;
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .card-bg:after {
+    content: ' ';
+    border-top: 100px solid rgb(51, 65, 85);
+    border-right: 100px solid transparent;
+    width: 0;
+    position: absolute;
+    left: 0;
+  }
+
+  .card-bg:before {
+    content: ' ';
+    border-top: 200px solid rgba(0, 0, 0, 0.5);
+    border-left: 150px solid transparent;
+    width: 0;
+    position: absolute;
+    right: 0;
+  }
+
+  body:after {
+    content: ' ';
+    border-bottom: 500px solid rgb(71, 85, 105);
+    border-right: 1200px solid transparent;
+    width: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -99;
+  }
+
+  body:before {
+    content: ' ';
+    border-bottom: 500px solid rgba(0, 0, 0, 0.5);
+    border-left: 1200px solid transparent;
+    width: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: -100;
+  }
+}

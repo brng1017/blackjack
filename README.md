@@ -51,16 +51,19 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - Face cards are 10, Aces are worth either 1 or 11, any other card is worth its pip value
 - Deck needs to be properly shuffled
 - 2 cards are dealt to each player and dealer, clockwise; dealer's second card is face down
+- Cards need to be dealt in the correct order
 - Handle Aces as 11 (if score over 21, reduce Aces to 1)
 - Stand (not ask for another card)
 - Hit (ask for another card to get closer to 21)
 - Dealer must hit if score is under 17
+- If either the dealer or the player hit a natural, end game and calculate winner
 
-| Player \ Dealer | under 21    | exactly 21  | bust        |
-| --------------- | ----------- | ----------- | ----------- |
-| under 21        | Max wins    | Dealer wins | Player wins |
-| exactly 21      | Player wins | Draw        | Player wins |
-| bust            | Dealer wins | Dealer wins | Dealer wins |
+| Player \ Dealer | under 21    | exactly 21  | bust        | natural     |
+| --------------- | ----------- | ----------- | ----------- | ----------- |
+| under 21        | Max wins    | Dealer wins | Player wins | Dealer wins |
+| exactly 21      | Player wins | Draw        | Player wins | x           |
+| bust            | Dealer wins | Dealer wins | Dealer wins | x           |
+| natural         | Blackjack   | x           | x           | Draw        |
 
 ### Possible Additions
 
@@ -69,3 +72,5 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - use classes intead of interfaces to create instances for creating objects
 - can add a backend and database configuration for multiplayer
 - handle splitting pairs
+- add animations and better styling
+- add mobile styling

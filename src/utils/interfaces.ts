@@ -15,7 +15,9 @@ export interface Game {
   dealer: Player;
 }
 
+export type decidedWinner = 'Player' | 'Dealer' | 'Natural' | 'Draw' | '';
+
 export interface Winner {
-  winner: string;
+  winner: decidedWinner;
   message: string;
 }

@@ -12,8 +12,8 @@ const App = () => {
   };
 
   return (
-    <div className='App'>
-      <div>
+    <div className='App h-screen'>
+      <div className=' absolute top-4 right-4'>
         <p>Cash: ${cash}</p>
         <p>Bet: ${bet}</p>
       </div>

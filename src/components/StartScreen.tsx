@@ -9,23 +9,42 @@ interface StartScreenProps {
 
 const StartScreen: FC<StartScreenProps> = ({ onStart, bet, setBet, cash }) => {
   return (
-    <div>
-      <h1>Welcome to Blackjack!</h1>
+    <div className=' w-full h-screen m-auto flex items-center justify-center'>
+      <div className=' flex flex-col items-center justify-center gap-4'>
+        <h1 className=' text-5xl'>BLACKJACK</h1>
 
-      <p>Bet</p>
-      <button onClick={() => setBet((curr) => curr - 5)} disabled={bet === 0}>
-        -
-      </button>
-      <button
-        onClick={() => setBet((curr) => curr + 5)}
-        disabled={bet === cash}
-      >
-        +
-      </button>
+        <p>Bet ${bet}</p>
+        <div>
+          <button
+            onClick={() => setBet((curr) => curr - 100)}
+            disabled={bet - 100 < 0}
+          >
+            --
+          </button>
+          <button
+            onClick={() => setBet((curr) => curr - 10)}
+            disabled={bet - 10 < 0}
+          >
+            -
+          </button>
+          <button
+            onClick={() => setBet((curr) => curr + 10)}
+            disabled={bet + 10 > cash}
+          >
+            +
+          </button>
+          <button
+            onClick={() => setBet((curr) => curr + 100)}
+            disabled={bet + 100 > cash}
+          >
+            ++
+          </button>
+        </div>
 
-      <button onClick={onStart} disabled={bet <= 0}>
-        Play
-      </button>
+        <button onClick={onStart} disabled={bet <= 0}>
+          Play
+        </button>
+      </div>
     </div>
   );
 };
