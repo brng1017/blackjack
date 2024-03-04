@@ -10,7 +10,7 @@ module.exports = {
         // disabled: '#66021b',
         disabled: '#11151c',
         button: '#9067C6',
-        hover: '#3b5249',
+        hover: '#7a58a8',
       },
     },
   },

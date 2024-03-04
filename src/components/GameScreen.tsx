@@ -18,6 +18,20 @@ interface GameScreenProps {
   setGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+/**
+ * Represents the game screen where the user interacts with the game, including making bets, hitting, standing, and doubling down.
+ *
+ * This component manages the game state, including the deck, player and dealer hands, scores, and game outcome. It utilizes various
+ * utility functions imported from '../utils' to manage game logic.
+ *
+ * @param {GameScreenProps} props - The props for the GameScreen component.
+ * @param {number} props.bet - The current bet amount.
+ * @param {React.Dispatch<React.SetStateAction<number>>} props.setBet - Function to update the bet amount.
+ * @param {number} props.cash - The total available cash.
+ * @param {React.Dispatch<React.SetStateAction<number>>} props.setCash - Function to update the cash amount.
+ * @param {React.Dispatch<React.SetStateAction<boolean>>} props.setGameStarted - Function to update the game started state.
+ * @returns {React.ReactElement} The rendered game screen with dealer and player hands, controls for the player actions, and displays the outcome when the game ends.
+ */
 const GameScreen: FC<GameScreenProps> = ({
   bet,
   setBet,
@@ -38,16 +52,17 @@ const GameScreen: FC<GameScreenProps> = ({
   });
   const [gameEnd, setGameEnd] = useState<boolean>(false);
   const [winner, setWinner] = useState<Winner>({ winner: '', message: '' });
-
-  function initializeGame() {
-    setGameEnd(false);
-    setWinner({ winner: '', message: '' });
-    setGameStarted(false);
-  }
+  const [doubleDown, setDoubleDown] = useState<boolean>(true);
 
   useEffect(() => {
     const newGame = createGame();
     setGame(newGame);
+    setGameEnd(false);
+    setWinner({ winner: '', message: '' });
+    setDoubleDown(true);
+    if (cash - bet < 0) {
+      setDoubleDown(false);
+    }
     // if either hits natural, end game
     if (newGame.dealer.score === 21 || newGame.player.score === 21) {
       setGameEnd(true);
@@ -64,12 +79,23 @@ const GameScreen: FC<GameScreenProps> = ({
 
   useEffect(() => {
     if (gameEnd) {
-      const winner = checkWinner(game.player, game.dealer);
+      const winner = checkWinner(game.player, game.dealer, bet);
       handlePayOut(winner.winner);
       setWinner(winner);
     }
   }, [gameEnd]);
 
+  /**
+   * Initializes the game by resetting state values to their defaults, bringing up the start screen, and starting a new game.
+   */
+  function initializeGame() {
+    setGameStarted(false);
+  }
+
+  /**
+   * Handles the payout to the player based on the game outcome.
+   * @param {decidedWinner} winner - The result of the game, determining the payout.
+   */
   function handlePayOut(winner: decidedWinner): void {
     if (winner === 'Player') setCash((currCash) => currCash + 2 * bet);
     else if (winner === 'Draw') setCash((currCash) => currCash + bet);
@@ -77,15 +103,36 @@ const GameScreen: FC<GameScreenProps> = ({
     setBet(0);
   }
 
+  /**
+   * Processes the player's decision to hit, drawing another card from the deck.
+   */
   function handleHit(): void {
-    setGame((currentGame) => handlePlayerHit(currentGame));
+    setGame((currentGame) => handlePlayerHit(currentGame, 'player'));
+    setDoubleDown(false);
   }
 
+  /**
+   * Processes the player's decision to stand, concluding the player's turn.
+   */
   function handleStand(): void {
     setGame((currentGame) => handlePlayerStand(currentGame));
     setGameEnd(true);
   }
 
+  /**
+   * Handles the player's decision to double down, doubling the bet and proceeding with the game accordingly.
+   */
+  function handleDoubleDown(): void {
+    setCash((curr) => curr - bet);
+    setBet((curr) => curr * 2);
+    handleHit();
+    // setTimeout(() => handleStand(), 1500);
+    handleStand();
+  }
+
+  /**
+   * Refreshes the page to restart the game from the beginning.
+   */
   function refreshPage(): void {
     if (typeof window !== 'undefined') window.location.reload();
   }
@@ -106,7 +153,7 @@ const GameScreen: FC<GameScreenProps> = ({
       )}
 
       <div className=' flex flex-col items-center justify-start pt-4'>
-        <h3>Dealer Hand</h3>
+        <h3>DEALER</h3>
         {gameEnd ? (
           <>
             <div className=' flex flex-row py-4'>
@@ -114,7 +161,7 @@ const GameScreen: FC<GameScreenProps> = ({
                 <CardComponent card={card} key={index} />
               ))}
             </div>
-            <p>{game.dealer.score}</p>
+            <p>Score: {game.dealer.score}</p>
           </>
         ) : (
           <div className=' flex flex-row py-4'>
@@ -128,17 +175,20 @@ const GameScreen: FC<GameScreenProps> = ({
         <div className=' flex flex-row gap-6'>
           <button onClick={handleHit}>Hit</button>
           <button onClick={handleStand}>Stand</button>
+          <button onClick={handleDoubleDown} disabled={!doubleDown}>
+            Double Down
+          </button>
         </div>
       )}
 
       <div className=' flex flex-col items-center justify-end pb-4'>
-        <h3>Player Hand</h3>
+        <h3>PLAYER</h3>
         <div className=' flex flex-row py-4'>
           {game.player.hand.map((card, index) => (
             <CardComponent card={card} key={index} />
           ))}
         </div>
-        <p>{game.player.score}</p>
+        <p>Score: {game.player.score}</p>
       </div>
     </div>
   );
