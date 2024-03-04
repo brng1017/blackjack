@@ -1,51 +1,8 @@
-# Getting Started with Create React App
+# Blackjack Web Application (Name TBD)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to my Blackjack web application, a modern take on the classic card game. This application let users play blackjack against a computerized dealer, with intuitive gameplay and a user-friendly interface.
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Rules and Requirements
+## Rules and Requirements
 
 - Player wins by getting closer to 21 than the dealer, without going over 21
 - Face cards are 10, Aces are worth either 1 or 11, any other card is worth its pip value
@@ -53,19 +10,94 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 - 2 cards are dealt to each player and dealer, clockwise; dealer's second card is face down
 - Cards need to be dealt in the correct order
 - Handle Aces as 11 (if score over 21, reduce Aces to 1)
-- Stand (not ask for another card)
-- Hit (ask for another card to get closer to 21)
+- Stand (not ask for another card); dealer then draws
+- Hit (ask for another card to get closer to 21); until stand or draw
 - Dealer must hit if score is under 17
 - If either the dealer or the player hit a natural, end game and calculate winner
 
-| Player \ Dealer | under 21    | exactly 21  | bust        | natural     |
-| --------------- | ----------- | ----------- | ----------- | ----------- |
-| under 21        | Max wins    | Dealer wins | Player wins | Dealer wins |
-| exactly 21      | Player wins | Draw        | Player wins | x           |
-| bust            | Dealer wins | Dealer wins | Dealer wins | x           |
-| natural         | Blackjack   | x           | x           | Draw        |
+## Features
 
-### Possible Additions
+- **Core Gameplay**: Play blackjack following standard rules - aim for a hand closer to 21 than the dealer's without going over.
+- **Natural Blackjacks**: The game automatically detects and rewards natural blackjacks (awards 2.5x the bet amount).
+- **Adaptive Dealer**: The dealer follows conventional casino rules, hitting until their hand value is at least 17.
+- **Game State Management**: the application efficiently manages and updates the game state, ensuring a seamless gaming experience.
+- **Hitting**: Players can hit to draw another card until they go over 21.
+- **Win conditions**:
+
+  | Player \ Dealer | under 21    | exactly 21  | bust        | natural     |
+  | --------------- | ----------- | ----------- | ----------- | ----------- |
+  | **under 21**    | Max wins    | Dealer wins | Player wins | Dealer wins |
+  | **exactly 21**  | Player wins | Draw        | Player wins | x           |
+  | **bust**        | Dealer wins | Dealer wins | Dealer wins | x           |
+  | **natural**     | Blackjack   | x           | x           | Draw        |
+
+## Additional Features
+
+- **Betting System**: Start with a default cash amount and place bets each round. Adjust your bet size between rounds.
+- **Double Down**: Players can choose to double down on their bet after the initial deal.
+- **User Interface**: The application showcases a user-friendly UI that shows all the buttons and information in a simple and intuitive manner.
+
+## Tech Stack
+
+- [React](https://reactjs.org/): A JavaScript library for building user interfaces.
+- React Hooks: For local state management
+- [Tailwind CSS](https://tailwindcss.com/): A utility-first CSS framework for rapidly building custom user interfaces.
+- [TypeScript](https://www.typescriptlang.org/): An extension of JavaScript that adds static typing.
+
+## Getting Started
+
+To get a local copy of this website up and running, follow these steps (you will need to install either [Node](https://nodejs.org/en/download) or [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)):
+
+1. **Clone the repository:**
+
+   ```shell
+   git clone https://github.com/brng1017/blackjack
+   cd blackjack-web-app
+   ```
+
+2. **Install dependencies:**
+
+   Using npm:
+
+   ```shell
+   npm install
+   ```
+
+   Or using Yarn:
+
+   ```shell
+   yarn
+   ```
+
+3. **Run the development server**
+
+   To start the app locally:
+
+   ```shell
+   npm run start
+   ```
+
+   Or using Yarn:
+
+   ```shell
+   yarn start
+   ```
+
+   The application will be available at http://localhost:3000 in your web browser.
+
+4. **Build the website:**
+
+   ```shell
+   npm run build
+   ```
+
+   This will generate a production-ready version of the website in the `build` folder.
+
+5. **Deploy the website:**
+
+   You can deploy the website to various hosting platforms, such as [Netlify](https://www.netlify.com/), [Vercel](https://vercel.com/), or [GitHub Pages](https://pages.github.com/). Choose the one that suits your needs and follow their deployment instructions.
+
+## Possible Future Additions
 
 - centralized state, like Redux, instead of prop drilling
 - can add functionality for more than one deck used

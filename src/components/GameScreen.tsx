@@ -63,7 +63,7 @@ const GameScreen: FC<GameScreenProps> = ({
     if (cash - bet < 0) {
       setDoubleDown(false);
     }
-    // if either hits natural, end game
+    // If either hits natural, end game
     if (newGame.dealer.score === 21 || newGame.player.score === 21) {
       setGameEnd(true);
     }
@@ -126,7 +126,6 @@ const GameScreen: FC<GameScreenProps> = ({
     setCash((curr) => curr - bet);
     setBet((curr) => curr * 2);
     handleHit();
-    // setTimeout(() => handleStand(), 1500);
     handleStand();
   }
 

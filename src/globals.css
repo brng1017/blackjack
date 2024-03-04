@@ -8,13 +8,13 @@
   }
 
   body {
-    @apply m-auto bg-background font-sans text-text font-extrabold;
+    @apply m-auto bg-background font-sans text-text font-light overflow-hidden;
   }
 }
 
 @layer utilities {
   button {
-    @apply bg-button rounded-sm px-5 py-2.5 text-center text-text transition-all ease-in hover:bg-hover focus:outline-none disabled:bg-disabled;
+    @apply bg-button font-extrabold rounded-sm px-5 py-2.5 text-center text-text transition-all ease-in hover:bg-hover focus:outline-none disabled:bg-disabled;
   }
 
   h3 {

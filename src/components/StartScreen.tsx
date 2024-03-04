@@ -25,7 +25,7 @@ const StartScreen: FC<StartScreenProps> = ({ onStart, bet, setBet, cash }) => {
   return (
     <div className=' w-full h-screen m-auto flex items-center justify-center'>
       <div className=' flex flex-col items-center justify-center gap-4'>
-        <h1 className=' text-5xl'>BLACKJACK</h1>
+        <h1 className=' text-5xl mb-8'>BLACKJACK</h1>
 
         <p>BET</p>
 
@@ -33,31 +33,35 @@ const StartScreen: FC<StartScreenProps> = ({ onStart, bet, setBet, cash }) => {
           <button
             onClick={() => setBet((curr) => curr - 100)}
             disabled={bet - 100 < 0}
+            className=' px-3 py-1.5'
           >
-            --
+            -100
           </button>
           <button
             onClick={() => setBet((curr) => curr - 10)}
             disabled={bet - 10 < 0}
+            className=' px-3 py-1.5'
           >
-            -
+            -10
           </button>
-          <p>${bet}</p>
+          <p className=' bg-slate-500 rounded-sm px-3 py-1.5'>${bet}</p>
           <button
             onClick={() => setBet((curr) => curr + 10)}
             disabled={bet + 10 > cash}
+            className=' px-3 py-1.5'
           >
-            +
+            +10
           </button>
           <button
             onClick={() => setBet((curr) => curr + 100)}
             disabled={bet + 100 > cash}
+            className=' px-3 py-1.5'
           >
-            ++
+            +100
           </button>
         </div>
 
-        <button onClick={onStart} disabled={bet <= 0}>
+        <button className=' mt-8' onClick={onStart} disabled={bet <= 0}>
           Play
         </button>
       </div>
