@@ -2,6 +2,8 @@
 
 Welcome to my Blackjack web application, a modern take on the classic card game. This application let users play blackjack against a computerized dealer, with intuitive gameplay and a user-friendly interface.
 
+[![Blackjack](image.png)](https://blackjack1017.netlify.app/)
+
 ## Rules and Requirements
 
 - Player wins by getting closer to 21 than the dealer, without going over 21
@@ -106,3 +108,5 @@ To get a local copy of this website up and running, follow these steps (you will
 - handle splitting pairs
 - add animations and better styling
 - add mobile styling
+- insurance betting
+- add unit testing using Jest

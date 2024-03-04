@@ -7,6 +7,7 @@ import {
   decidedWinner,
   handlePlayerHit,
   handlePlayerStand,
+  isNatural,
 } from '../utils';
 import { CardComponent } from '../components';
 
@@ -72,7 +73,7 @@ const GameScreen: FC<GameScreenProps> = ({
   useEffect(() => {
     if (game.player.score > 21) {
       setGameEnd(true);
-    } else if (game.player.score === 21) {
+    } else if (game.player.score === 21 && !isNatural(game.player)) {
       handleStand();
     }
   }, [game.player.score]);

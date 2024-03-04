@@ -29,7 +29,13 @@ const CardComponent: FC<CardProps> = ({ card }) => {
   const SuitIcon = card ? iconMap[card.suit] : GiHearts;
 
   return (
-    <div className=' fade-in w-36 h-56 bg-slate-900 outline outline-1 outline-slate-300 rounded-md text-text flex items-center justify-center relative overflow-hidden -ml-24 first:ml-auto'>
+    <div
+      className={` fade-in w-36 h-56 bg-slate-900 outline outline-1 outline-slate-300 rounded-md flex items-center justify-center relative overflow-hidden -ml-24 first:ml-auto ${
+        card?.suit === 'Hearts' || card?.suit === 'Diamonds'
+          ? 'text-red-600'
+          : 'text-text'
+      }`}
+    >
       {card ? (
         <>
           <div className=' absolute top-2 left-2 text-xl flex flex-col items-center'>

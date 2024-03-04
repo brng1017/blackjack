@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { GiSpades, GiHearts, GiDiamonds, GiClubs } from 'react-icons/gi';
 
 interface StartScreenProps {
   onStart: () => void;
@@ -25,7 +26,13 @@ const StartScreen: FC<StartScreenProps> = ({ onStart, bet, setBet, cash }) => {
   return (
     <div className=' w-full h-screen m-auto flex items-center justify-center'>
       <div className=' flex flex-col items-center justify-center gap-4'>
-        <h1 className=' text-5xl mb-8'>BLACKJACK</h1>
+        <div className=' text-5xl mb-8 flex flex-row gap-2'>
+          <GiClubs />
+          <GiDiamonds className=' text-red-600' />
+          <h1>BLACKJACK</h1>
+          <GiHearts className=' text-red-600' />
+          <GiSpades />
+        </div>
 
         <p>BET</p>
 
